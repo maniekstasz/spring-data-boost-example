@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import example.shop.model.Address;
 
-@RepositoryRestResource
+@RepositoryRestResource()
 public interface AddressRepository extends PagingAndSortingRepository<Address, Long> {
 
 }

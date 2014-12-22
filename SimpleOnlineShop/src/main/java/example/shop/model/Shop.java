@@ -10,27 +10,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import openrest.query.StaticFilter;
+import openrest.security.response.filter.SpelFilter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-@Data
+//@Data
 @Entity
+@SpelFilter(value="1==1", properties = "name")
+@StaticFilter(value = "eq(id,1)", name = "new_shop")
 public class Shop extends AbstractPersistable<Long> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8526457060458720791L;
 
-	private String name;
+	private @Getter @Setter String name;
 
-	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-	private User user;
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
+	private @Getter @Setter User user;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<Address> addresses;
+	private @Getter @Setter List<Address> addresses;
 
 	@OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
-	private List<Product> products;
+	private @Getter @Setter List<Product> products;
 
 	public Shop(String name, Address address) {
 		super();

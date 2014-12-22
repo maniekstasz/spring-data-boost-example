@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import example.shop.model.Address;
 import example.shop.model.Category;
 import example.shop.model.Product;
@@ -69,6 +71,7 @@ public class Run implements CommandLineRunner {
 		userRepository.save(tomasz);
 		userRepository.save(bartek);
 
+		
 		//
 		// List<Product> products = new ArrayList<Product>();
 		// for (int i = 0; i < 20; i++) {

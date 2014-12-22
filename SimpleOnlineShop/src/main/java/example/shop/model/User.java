@@ -9,12 +9,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
-import openrest.response.filter.SpelFilter;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import openrest.query.StaticFilter;
+import openrest.security.response.filter.SpelFilter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-@Data
+//@Data
+@StaticFilter(value = "eq(username,'asdfasdf')", name = "new_user")
 @SpelFilter(value="filteredObject.username == 'bartek'", properties="password")
 public class User extends AbstractPersistable<Long> {
 	/**
@@ -22,14 +27,14 @@ public class User extends AbstractPersistable<Long> {
 	 */
 	private static final long serialVersionUID = -2902271887674358698L;
 
-	private String username;
-	private String password;
+	private @Getter @Setter String username;
+	private @Getter @Setter String password;
 
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private Address address;
+	private @Getter @Setter Address address;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<Shop> shops;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	private @Getter @Setter List<Shop> shops;
 
 	public User() {
 	}
@@ -47,5 +52,6 @@ public class User extends AbstractPersistable<Long> {
 			shop.setUser(this);
 
 	}
+
 
 }

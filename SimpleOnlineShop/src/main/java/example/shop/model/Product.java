@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import openrest.query.StaticFilter;
+import openrest.security.response.filter.SpelFilter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -12,7 +13,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@StaticFilter(value="eq(state,'NEW');or;eq(state,'BRAND_NEW')", name="new_products")
+@StaticFilter(value = "eq(name,#@tescik.srutu#);and;eq(active,#@tescik.man()#)", name = "new_products")
+@SpelFilter(value = "1==1", properties = "name")
 public class Product extends AbstractPersistable<Long> {
 	/**
 	 * 
@@ -31,6 +33,7 @@ public class Product extends AbstractPersistable<Long> {
 	private @Getter @Setter Double price;
 	private @Getter @Setter Location location;
 	private @Getter @Setter State state;
+	private @Getter @Setter Boolean active;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private @Getter @Setter Category category;
@@ -47,6 +50,7 @@ public class Product extends AbstractPersistable<Long> {
 		this.price = price;
 		this.location = location;
 		this.state = state;
+		this.active = true;
 	}
 
 }
